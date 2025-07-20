@@ -1,5 +1,6 @@
-import { ArrowRight, Clock, Users, Star, CheckCircle } from 'lucide-react';
+import { ArrowRight, Clock, Users, Star, CheckCircle, Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 import { mockJornada } from '@/data/mockData';
 
 export const Landing = () => {
@@ -10,23 +11,26 @@ export const Landing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
+    <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30">
       {/* Hero Section */}
       <div className="relative px-4 pt-12 pb-8">
-        <div className="max-w-lg mx-auto text-center space-y-6">
+        <div className="max-w-lg mx-auto text-center space-y-6 animate-fade-in">
           {/* Hero Image */}
-          <div className="relative mx-auto w-64 h-48 rounded-2xl overflow-hidden shadow-lg">
+          <div className="relative mx-auto w-64 h-48 rounded-2xl overflow-hidden shadow-lg hover-lift animate-scale-in">
             <img 
               src="https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?w=400&h=300&fit=crop"
               alt="Jornada Espiritual"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+            <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm rounded-full p-2 glass-effect">
+              <Sparkles size={16} className="text-white" />
+            </div>
           </div>
 
           {/* Title & Description */}
-          <div className="space-y-4">
-            <h1 className="text-3xl font-bold text-foreground leading-tight">
+          <div className="space-y-4 animate-slide-up">
+            <h1 className="text-3xl font-bold text-foreground leading-tight gradient-text">
               {mockJornada.titulo}
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed">
@@ -35,22 +39,22 @@ export const Landing = () => {
           </div>
 
           {/* Stats */}
-          <div className="flex justify-center gap-6 py-4">
-            <div className="text-center">
+          <div className="flex justify-center gap-6 py-4 animate-fade-in">
+            <div className="text-center hover-lift">
               <div className="flex items-center justify-center gap-1 text-primary">
                 <Clock size={18} />
                 <span className="font-semibold">{mockJornada.duracao}</span>
               </div>
               <p className="text-sm text-muted-foreground">dias</p>
             </div>
-            <div className="text-center">
+            <div className="text-center hover-lift">
               <div className="flex items-center justify-center gap-1 text-primary">
                 <Users size={18} />
                 <span className="font-semibold">1.2k</span>
               </div>
               <p className="text-sm text-muted-foreground">pessoas</p>
             </div>
-            <div className="text-center">
+            <div className="text-center hover-lift">
               <div className="flex items-center justify-center gap-1 text-primary">
                 <Star size={18} />
                 <span className="font-semibold">4.9</span>
@@ -91,7 +95,11 @@ export const Landing = () => {
                 description: "Momentos de conexão espiritual orientados"
               }
             ].map((feature, index) => (
-              <div key={index} className="flex gap-3 p-4 bg-card rounded-lg border">
+              <div 
+                key={index} 
+                className="flex gap-3 p-4 bg-card rounded-lg border hover-lift animate-fade-in"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
                 {feature.icon}
                 <div className="flex-1">
                   <h3 className="font-medium text-foreground">{feature.title}</h3>
@@ -110,10 +118,10 @@ export const Landing = () => {
             Prévia do Primeiro Dia
           </h2>
           
-          <div className="bg-card rounded-xl p-6 border shadow-sm">
+          <div className="bg-card rounded-xl p-6 border shadow-sm hover-lift animate-scale-in glass-effect">
             <div className="space-y-4">
               <div className="text-center">
-                <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full">
+                <span className="inline-block px-3 py-1 bg-primary/20 text-primary text-sm font-medium rounded-full backdrop-blur-sm">
                   Dia 1
                 </span>
                 <h3 className="text-lg font-semibold mt-2 text-foreground">
@@ -126,7 +134,8 @@ export const Landing = () => {
               </p>
               
               <div className="text-center pt-2">
-                <span className="text-sm text-muted-foreground">
+                <span className="text-sm text-muted-foreground flex items-center justify-center gap-1">
+                  <Sparkles size={14} />
                   E muito mais conteúdo te aguarda!
                 </span>
               </div>
@@ -145,13 +154,15 @@ export const Landing = () => {
             </p>
           </div>
           
-          <button 
+          <Button 
             onClick={handleIniciarJornada}
-            className="w-full bg-primary text-primary-foreground py-4 px-6 rounded-xl font-semibold text-lg flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors shadow-lg"
+            variant="premium"
+            size="lg"
+            className="w-full py-4 px-6 text-lg font-semibold rounded-xl shadow-xl"
           >
             Iniciar Jornada
             <ArrowRight size={20} />
-          </button>
+          </Button>
           
           <p className="text-xs text-center text-muted-foreground">
             Sem compromisso • Cancele quando quiser
