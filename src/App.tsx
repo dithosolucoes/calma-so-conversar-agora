@@ -18,7 +18,7 @@ import { WriterJornadas } from "./pages/escritor/WriterJornadas";
 import { NovaJornada } from "./pages/escritor/NovaJornada";
 import { WriterConteudo } from "./pages/escritor/WriterConteudo";
 import { WriterProdutos } from "./pages/escritor/WriterProdutos";
-import { WriterTemplates } from "./pages/escritor/WriterTemplates";
+import WriterTemplates from "./pages/escritor/WriterTemplates";
 import { WriterConfiguracoes } from "./pages/escritor/WriterConfiguracoes";
 import { EditarJornada } from "./pages/escritor/EditarJornada";
 import Index from "./pages/Index";
