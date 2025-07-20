@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Heart, Book, BookOpen, HelpCircle, Users, Sparkles, Calendar } from 'lucide-react';
 import { JornadaDias } from '@/components/hoje/WeekStreak';
-import { AtividadeCard } from '@/components/hoje/AtividadeCard';
+import { CustomAtividadeCard } from './CustomAtividadeCard';
 import { AtividadeModal } from '@/components/modais/AtividadeModal';
 import { TemplateConfig } from '@/types/template';
 import { mockUsuario, mockJornada } from '@/data/mockData';
@@ -139,20 +139,20 @@ export const InteractiveTemplatePreview = ({ template }: InteractiveTemplatePrev
       <div 
         className="w-full max-w-sm mx-auto overflow-hidden scale-75 origin-top border rounded-lg"
         style={{
-          ...containerStyle,
+          fontFamily: template.tipografia.fontePrimaria,
           backgroundColor: `hsl(${template.cores.background})`,
           color: `hsl(${template.cores.text})`,
           borderColor: `hsl(${template.cores.secondary})`
         }}
       >
-          <div 
-            className="p-4 pb-20 space-y-6 min-h-[600px]"
-            style={{
-              backgroundImage: template.elementos.gradientes 
-                ? `linear-gradient(to bottom, hsl(${template.cores.background}), hsl(${template.cores.secondary} / 0.2))` 
-                : undefined
-            }}
-          >
+        <div 
+          className="p-4 pb-20 space-y-6 min-h-[600px]"
+          style={{
+            backgroundImage: template.elementos.gradientes 
+              ? `linear-gradient(to bottom, hsl(${template.cores.background}), hsl(${template.cores.secondary} / 0.2))` 
+              : undefined
+          }}
+        >
           {/* Cabeçalho */}
           {template.layout.cabecalho !== 'minimal' && (
             <div className={cn(
@@ -341,12 +341,13 @@ export const InteractiveTemplatePreview = ({ template }: InteractiveTemplatePrev
                     animationFillMode: 'forwards'
                   }}
                 >
-                  <AtividadeCard
+                  <CustomAtividadeCard
                     titulo={atividade.titulo}
                     icon={atividade.icon}
                     tempo={atividade.tempo}
                     completada={atividadesStatus[atividade.id]}
                     onClick={() => abrirModal(atividade)}
+                    template={template}
                   />
                 </div>
               ))}
