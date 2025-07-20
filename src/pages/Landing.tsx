@@ -6,9 +6,9 @@ export const Landing = () => {
   const navigate = useNavigate();
 
   const handleIniciarJornada = () => {
-    // Por enquanto vai direto para o app (depois será o checkout)
-    navigate('/app');
+    navigate('/checkout');
   };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
       {/* Hero Section */}
