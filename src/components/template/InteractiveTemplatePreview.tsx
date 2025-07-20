@@ -129,18 +129,30 @@ export const InteractiveTemplatePreview = ({ template }: InteractiveTemplatePrev
     '--background': template.cores.background,
     '--card': template.cores.card,
     '--foreground': template.cores.text,
+    '--muted': template.cores.secondary,
+    '--muted-foreground': template.cores.text,
+    '--border': template.cores.secondary,
   } as React.CSSProperties;
 
   return (
     <div className="relative">
       <div 
-        className="w-full max-w-sm mx-auto bg-background text-foreground overflow-hidden scale-75 origin-top border rounded-lg"
-        style={containerStyle}
+        className="w-full max-w-sm mx-auto overflow-hidden scale-75 origin-top border rounded-lg"
+        style={{
+          ...containerStyle,
+          backgroundColor: `hsl(${template.cores.background})`,
+          color: `hsl(${template.cores.text})`,
+          borderColor: `hsl(${template.cores.secondary})`
+        }}
       >
-        <div className={cn(
-          "p-4 pb-20 space-y-6 min-h-[600px]",
-          template.elementos.gradientes && "bg-gradient-to-b from-background to-muted/20"
-        )}>
+          <div 
+            className="p-4 pb-20 space-y-6 min-h-[600px]"
+            style={{
+              backgroundImage: template.elementos.gradientes 
+                ? `linear-gradient(to bottom, hsl(${template.cores.background}), hsl(${template.cores.secondary} / 0.2))` 
+                : undefined
+            }}
+          >
           {/* Cabeçalho */}
           {template.layout.cabecalho !== 'minimal' && (
             <div className={cn(
@@ -148,36 +160,70 @@ export const InteractiveTemplatePreview = ({ template }: InteractiveTemplatePrev
               template.cardsAtividade.animacao && "animate-fade-in"
             )}>
               <div className="flex items-center gap-3">
-                <div className={cn(
-                  "w-12 h-12 rounded-full flex items-center justify-center shadow-lg",
-                  template.elementos.gradientes 
-                    ? "bg-gradient-to-r from-primary to-primary-glow" 
-                    : "bg-primary"
-                )}>
+                <div 
+                  className={cn(
+                    "w-12 h-12 rounded-full flex items-center justify-center shadow-lg",
+                    template.elementos.gradientes && "bg-gradient-to-r"
+                  )}
+                  style={{
+                    backgroundColor: template.elementos.gradientes 
+                      ? undefined 
+                      : `hsl(${template.cores.primary})`,
+                    backgroundImage: template.elementos.gradientes 
+                      ? `linear-gradient(to right, hsl(${template.cores.primary}), hsl(${template.cores.accent}))` 
+                      : undefined
+                  }}
+                >
                   <Sparkles size={20} className="text-white" />
                 </div>
                 <div className="flex-1">
-                  <h1 className={cn(
-                    getTituloSize(),
-                    getTituloPeso(),
-                    template.elementos.gradientes ? "gradient-text" : "text-foreground"
-                  )}>
+                  <h1 
+                    className={cn(
+                      getTituloSize(),
+                      getTituloPeso()
+                    )}
+                    style={{
+                      color: template.elementos.gradientes 
+                        ? undefined 
+                        : `hsl(${template.cores.text})`,
+                      backgroundImage: template.elementos.gradientes 
+                        ? `linear-gradient(to right, hsl(${template.cores.primary}), hsl(${template.cores.accent}))` 
+                        : undefined,
+                      backgroundClip: template.elementos.gradientes ? 'text' : undefined,
+                      WebkitBackgroundClip: template.elementos.gradientes ? 'text' : undefined,
+                      WebkitTextFillColor: template.elementos.gradientes ? 'transparent' : undefined
+                    }}
+                  >
                     Olá, {mockUsuario.nome}!
                   </h1>
                   {template.layout.cabecalho === 'completo' && (
-                    <p className="text-sm text-muted-foreground">Que bom te ver aqui hoje</p>
+                    <p 
+                      className="text-sm"
+                      style={{ color: `hsl(${template.cores.text} / 0.7)` }}
+                    >
+                      Que bom te ver aqui hoje
+                    </p>
                   )}
                 </div>
               </div>
               
               {template.layout.mostrarProgresso && (
-                <div className={cn(
-                  "bg-card p-4 border",
-                  getCardBordas(),
-                  getCardSombra(),
-                  template.cardsAtividade.animacao && "hover-lift"
-                )}>
-                  <p className="text-sm text-muted-foreground mb-3 flex items-center gap-2">
+                <div 
+                  className={cn(
+                    "p-4 border",
+                    getCardBordas(),
+                    getCardSombra(),
+                    template.cardsAtividade.animacao && "hover:scale-105 transition-transform duration-200"
+                  )}
+                  style={{
+                    backgroundColor: `hsl(${template.cores.card})`,
+                    borderColor: `hsl(${template.cores.secondary})`
+                  }}
+                >
+                  <p 
+                    className="text-sm mb-3 flex items-center gap-2"
+                    style={{ color: `hsl(${template.cores.text} / 0.7)` }}
+                  >
                     <Calendar size={16} />
                     Progresso da sua jornada:
                   </p>
@@ -191,38 +237,77 @@ export const InteractiveTemplatePreview = ({ template }: InteractiveTemplatePrev
           )}
 
           {/* Card Principal do Dia */}
-          <div className={cn(
-            "bg-card p-6 border",
-            getCardBordas(),
-            getCardSombra(),
-            template.cardsAtividade.animacao && "hover-lift animate-scale-in",
-            template.elementos.gradientes && "glass-effect"
-          )}>
+          <div 
+            className={cn(
+              "p-6 border",
+              getCardBordas(),
+              getCardSombra(),
+              template.cardsAtividade.animacao && "hover:scale-105 transition-transform duration-200",
+              template.elementos.gradientes && "backdrop-blur-sm bg-opacity-80"
+            )}
+            style={{
+              backgroundColor: `hsl(${template.cores.card})`,
+              borderColor: `hsl(${template.cores.secondary})`
+            }}
+          >
             <div className="flex items-start justify-between mb-6">
               <div className="flex-1">
                 {template.layout.mostrarData && (
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-3">
+                  <div 
+                    className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium mb-3"
+                    style={{
+                      backgroundColor: `hsl(${template.cores.primary} / 0.1)`,
+                      color: `hsl(${template.cores.primary})`
+                    }}
+                  >
                     <Calendar size={14} />
                     {dataAtual}
                   </div>
                 )}
-                <h2 className={cn(
-                  getTituloSize(),
-                  getTituloPeso(),
-                  template.elementos.gradientes ? "gradient-text" : "text-foreground"
-                )}>
+                <h2 
+                  className={cn(
+                    getTituloSize(),
+                    getTituloPeso()
+                  )}
+                  style={{
+                    color: template.elementos.gradientes 
+                      ? undefined 
+                      : `hsl(${template.cores.text})`,
+                    backgroundImage: template.elementos.gradientes 
+                      ? `linear-gradient(to right, hsl(${template.cores.primary}), hsl(${template.cores.accent}))` 
+                      : undefined,
+                    backgroundClip: template.elementos.gradientes ? 'text' : undefined,
+                    WebkitBackgroundClip: template.elementos.gradientes ? 'text' : undefined,
+                    WebkitTextFillColor: template.elementos.gradientes ? 'transparent' : undefined
+                  }}
+                >
                   {diaAtual.tema}
                 </h2>
-                <p className="text-sm text-muted-foreground mt-1">
+                <p 
+                  className="text-sm mt-1"
+                  style={{ color: `hsl(${template.cores.text} / 0.7)` }}
+                >
                   Dia {mockUsuario.dia_atual} de {mockJornada.duracao}
                 </p>
               </div>
               {template.layout.estiloBotaoFavorito && (
-                <button className={cn(
-                  "p-3 rounded-full hover:bg-muted/50 transition-all group",
-                  template.cardsAtividade.animacao && "hover-lift"
-                )}>
-                  <Heart size={20} className="text-muted-foreground group-hover:text-red-500 transition-colors" />
+                <button 
+                  className={cn(
+                    "p-3 rounded-full transition-all group",
+                    template.cardsAtividade.animacao && "hover:scale-110"
+                  )}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = `hsl(${template.cores.secondary} / 0.5)`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }}
+                >
+                  <Heart 
+                    size={20} 
+                    className="group-hover:text-red-500 transition-colors" 
+                    style={{ color: `hsl(${template.cores.text} / 0.6)` }}
+                  />
                 </button>
               )}
             </div>
@@ -230,21 +315,30 @@ export const InteractiveTemplatePreview = ({ template }: InteractiveTemplatePrev
             {/* Cards de Atividade */}
             <div className="space-y-3">
               <div className="flex items-center gap-2 mb-4">
-                <div className={cn(
-                  "w-2 h-2 rounded-full bg-primary",
-                  template.cardsAtividade.animacao && "animate-pulse"
-                )} />
-                <h3 className="font-medium text-foreground">Atividades de hoje</h3>
+                <div 
+                  className={cn(
+                    "w-2 h-2 rounded-full",
+                    template.cardsAtividade.animacao && "animate-pulse"
+                  )}
+                  style={{ backgroundColor: `hsl(${template.cores.primary})` }}
+                />
+                <h3 
+                  className="font-medium"
+                  style={{ color: `hsl(${template.cores.text})` }}
+                >
+                  Atividades de hoje
+                </h3>
               </div>
               
               {atividades.map((atividade, index) => (
                 <div 
                   key={atividade.id}
                   className={cn(
-                    template.cardsAtividade.animacao && "animate-fade-in"
+                    template.cardsAtividade.animacao && "opacity-0 animate-fade-in"
                   )}
                   style={{ 
-                    animationDelay: template.cardsAtividade.animacao ? `${index * 0.1}s` : '0s' 
+                    animationDelay: template.cardsAtividade.animacao ? `${index * 0.1}s` : '0s',
+                    animationFillMode: 'forwards'
                   }}
                 >
                   <AtividadeCard

@@ -18,8 +18,40 @@ export const TemplateEditor = ({ template, onTemplateChange }: TemplateEditorPro
     onTemplateChange({ ...template, ...updates });
   };
 
+  const hslToHex = (hsl: string): string => {
+    // Converte HSL para hex (simplificado)
+    const [h, s, l] = hsl.split(' ').map((value, index) => {
+      if (index === 0) return parseInt(value);
+      return parseInt(value.replace('%', '')) / 100;
+    });
+
+    const c = (1 - Math.abs(2 * l - 1)) * s;
+    const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+    const m = l - c / 2;
+    let r = 0, g = 0, b = 0;
+
+    if (0 <= h && h < 60) {
+      r = c; g = x; b = 0;
+    } else if (60 <= h && h < 120) {
+      r = x; g = c; b = 0;
+    } else if (120 <= h && h < 180) {
+      r = 0; g = c; b = x;
+    } else if (180 <= h && h < 240) {
+      r = 0; g = x; b = c;
+    } else if (240 <= h && h < 300) {
+      r = x; g = 0; b = c;
+    } else if (300 <= h && h < 360) {
+      r = c; g = 0; b = x;
+    }
+
+    r = Math.round((r + m) * 255);
+    g = Math.round((g + m) * 255);
+    b = Math.round((b + m) * 255);
+
+    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+  };
+
   const hexToHsl = (hex: string): string => {
-    // Converte hex para HSL (simplificado)
     const r = parseInt(hex.slice(1, 3), 16) / 255;
     const g = parseInt(hex.slice(3, 5), 16) / 255;
     const b = parseInt(hex.slice(5, 7), 16) / 255;
@@ -55,7 +87,7 @@ export const TemplateEditor = ({ template, onTemplateChange }: TemplateEditorPro
               <Input
                 id="primary"
                 type="color"
-                value={`#${template.cores.primary.replace(/\D/g, '').padStart(6, '0')}`}
+                value={hslToHex(template.cores.primary)}
                 onChange={(e) => updateTemplate({
                   cores: { ...template.cores, primary: hexToHsl(e.target.value) }
                 })}
@@ -67,9 +99,57 @@ export const TemplateEditor = ({ template, onTemplateChange }: TemplateEditorPro
               <Input
                 id="secondary"
                 type="color"
-                value={`#${template.cores.secondary.replace(/\D/g, '').padStart(6, '0')}`}
+                value={hslToHex(template.cores.secondary)}
                 onChange={(e) => updateTemplate({
                   cores: { ...template.cores, secondary: hexToHsl(e.target.value) }
+                })}
+                className="h-10"
+              />
+            </div>
+            <div>
+              <Label htmlFor="accent">Cor de Destaque</Label>
+              <Input
+                id="accent"
+                type="color"
+                value={hslToHex(template.cores.accent)}
+                onChange={(e) => updateTemplate({
+                  cores: { ...template.cores, accent: hexToHsl(e.target.value) }
+                })}
+                className="h-10"
+              />
+            </div>
+            <div>
+              <Label htmlFor="background">Cor de Fundo</Label>
+              <Input
+                id="background"
+                type="color"
+                value={hslToHex(template.cores.background)}
+                onChange={(e) => updateTemplate({
+                  cores: { ...template.cores, background: hexToHsl(e.target.value) }
+                })}
+                className="h-10"
+              />
+            </div>
+            <div>
+              <Label htmlFor="card">Cor dos Cards</Label>
+              <Input
+                id="card"
+                type="color"
+                value={hslToHex(template.cores.card)}
+                onChange={(e) => updateTemplate({
+                  cores: { ...template.cores, card: hexToHsl(e.target.value) }
+                })}
+                className="h-10"
+              />
+            </div>
+            <div>
+              <Label htmlFor="text">Cor do Texto</Label>
+              <Input
+                id="text"
+                type="color"
+                value={hslToHex(template.cores.text)}
+                onChange={(e) => updateTemplate({
+                  cores: { ...template.cores, text: hexToHsl(e.target.value) }
                 })}
                 className="h-10"
               />
