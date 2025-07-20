@@ -1,35 +1,34 @@
 
-import { Flame } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-interface WeekStreakProps {
-  streak: number[]; // Array de 7 elementos (0 ou 1)
+interface JornadaDiasProps {
+  diasTotais: number;
+  diaAtual: number;
 }
 
-export const WeekStreak = ({ streak }: WeekStreakProps) => {
-  const diasSemana = ['S', 'T', 'Q', 'Q', 'S', 'S', 'D'];
-
+export const JornadaDias = ({ diasTotais, diaAtual }: JornadaDiasProps) => {
   return (
-    <div className="flex items-center gap-2">
-      <div className="flex gap-1">
-        {diasSemana.map((dia, index) => (
+    <div className="flex items-center gap-1 flex-wrap">
+      {Array.from({ length: diasTotais }, (_, index) => {
+        const numeroDia = index + 1;
+        const isCompleto = numeroDia < diaAtual;
+        const isAtual = numeroDia === diaAtual;
+        const isFuturo = numeroDia > diaAtual;
+
+        return (
           <div
-            key={index}
+            key={numeroDia}
             className={cn(
-              "w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium",
-              streak[index] === 1
-                ? "bg-orange-500 text-white"
-                : "bg-muted text-muted-foreground"
+              "w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium transition-colors",
+              isCompleto && "bg-green-500 text-white",
+              isAtual && "bg-primary text-primary-foreground ring-2 ring-primary/20",
+              isFuturo && "bg-muted text-muted-foreground"
             )}
           >
-            {streak[index] === 1 ? (
-              <Flame size={14} />
-            ) : (
-              dia
-            )}
+            {numeroDia}
           </div>
-        ))}
-      </div>
+        );
+      })}
     </div>
   );
 };

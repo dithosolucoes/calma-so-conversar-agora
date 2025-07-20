@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { Heart, Book, BookOpen, HelpCircle, Users } from 'lucide-react';
-import { WeekStreak } from '@/components/hoje/WeekStreak';
+import { JornadaDias } from '@/components/hoje/WeekStreak';
 import { AtividadeCard } from '@/components/hoje/AtividadeCard';
 import { AtividadeModal } from '@/components/modais/AtividadeModal';
 import { mockUsuario, mockJornada } from '@/data/mockData';
@@ -80,10 +80,14 @@ export const HojeTela = () => {
   return (
     <div className="p-4 pb-20 space-y-6">
       {/* Cabeçalho */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Olá, {mockUsuario.nome}!</h1>
-          <WeekStreak streak={mockUsuario.streak} />
+      <div className="space-y-3">
+        <h1 className="text-2xl font-bold">Olá, {mockUsuario.nome}!</h1>
+        <div>
+          <p className="text-sm text-muted-foreground mb-2">Sua jornada:</p>
+          <JornadaDias 
+            diasTotais={mockJornada.duracao} 
+            diaAtual={mockUsuario.dia_atual} 
+          />
         </div>
       </div>
 
