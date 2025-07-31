@@ -20,16 +20,38 @@ import {
 
 // Importar componentes da biblioteca
 import {
+  // Fundamentos
+  designTokens,
+  // Elementos
   Badge as BibliotecaBadge,
   Icon,
   Typography,
   LoadingSpinner,
+  Button as BibliotecaButton,
+  Input as BibliotecaInput,
+  Avatar,
+  UserAvatar,
+  Skeleton,
+  SkeletonCard,
+  // Funcionais
   DevotionalCard,
   ProgressTracker,
   StatsCard,
   AchievementCard,
-  templateBuilder,
-  designTokens
+  // Navegação
+  TopNavigation,
+  DevotionalTopNav,
+  Breadcrumb,
+  DevotionalBreadcrumb,
+  // Telas
+  DashboardScreen,
+  SimpleDashboard,
+  // Aplicação
+  ThemeProvider,
+  ThemeSelector,
+  ReaderApp,
+  // Template Builder (ainda será implementado)
+  templateBuilder
 } from '@/components/biblioteca';
 
 export default function WriterBiblioteca() {
@@ -98,16 +120,88 @@ export default function WriterBiblioteca() {
         </div>
       </div>
 
-      <Tabs defaultValue="elementos" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-5">
+      <Tabs defaultValue="fundamentos" className="space-y-6">
+        <TabsList className="grid w-full grid-cols-4 lg:grid-cols-8 text-xs">
+          <TabsTrigger value="fundamentos">Fundamentos</TabsTrigger>
           <TabsTrigger value="elementos">Elementos</TabsTrigger>
           <TabsTrigger value="funcionais">Funcionais</TabsTrigger>
           <TabsTrigger value="secoes">Seções</TabsTrigger>
           <TabsTrigger value="layouts">Layouts</TabsTrigger>
-          <TabsTrigger value="templates">Templates</TabsTrigger>
+          <TabsTrigger value="navegacao">Navegação</TabsTrigger>
+          <TabsTrigger value="telas">Telas</TabsTrigger>
+          <TabsTrigger value="aplicacao">Aplicação</TabsTrigger>
         </TabsList>
 
-        {/* ELEMENTOS BÁSICOS */}
+        {/* 1. FUNDAMENTOS */}
+        <TabsContent value="fundamentos" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Palette size={20} />
+                Design Tokens e Fundamentos
+              </CardTitle>
+              <CardDescription>
+                Prótons, Elétrons e Nêutrons do sistema - cores, tipografia e espaçamentos
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <h3 className="font-semibold">Esquemas de Cores</h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    {Object.entries(designTokens.colors.schemes).map(([name, colors]) => (
+                      <div key={name} className="p-3 border rounded-lg">
+                        <h4 className="text-sm font-medium mb-2">{name}</h4>
+                        <div className="flex gap-1">
+                          <div 
+                            className="w-4 h-4 rounded"
+                            style={{ backgroundColor: colors.primary }}
+                            title="Primary"
+                          />
+                          <div 
+                            className="w-4 h-4 rounded"
+                            style={{ backgroundColor: colors.secondary }}
+                            title="Secondary"
+                          />
+                          <div 
+                            className="w-4 h-4 rounded"
+                            style={{ backgroundColor: colors.accent }}
+                            title="Accent"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <h3 className="font-semibold">Tipografia</h3>
+                  <div className="space-y-2">
+                    <p className="text-xs text-muted-foreground">Famílias disponíveis:</p>
+                    <div className="space-y-1 text-sm">
+                      <div>Primary: {designTokens.typography.families.primary.join(', ')}</div>
+                      <div>Heading: {designTokens.typography.families.heading.join(', ')}</div>
+                      <div>Mono: {designTokens.typography.families.mono.join(', ')}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-6 p-4 bg-muted/20 rounded-lg">
+                <pre className="text-xs overflow-x-auto">
+{`import { designTokens, applyColorScheme } from '@/components/biblioteca';
+
+// Aplicar esquema de cores
+const styles = applyColorScheme('aurora');
+// styles = { '--primary': 'hsl(248, 85%, 66%)', ... }
+
+// Usar tokens
+const primaryColor = designTokens.colors.schemes.aurora.primary;`}
+                </pre>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* 2. ELEMENTOS BÁSICOS */}
         <TabsContent value="elementos" className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <ComponentExample
@@ -162,10 +256,88 @@ export default function WriterBiblioteca() {
               }
               code={`<LoadingSpinner size="md" text="Carregando..." />`}
             />
+
+            <ComponentExample
+              title="Button"
+              description="Botões com variantes devocionais"
+              component={
+                <div className="flex flex-wrap gap-2">
+                  <BibliotecaButton variant="default">Padrão</BibliotecaButton>
+                  <BibliotecaButton variant="devocional">Devocional</BibliotecaButton>
+                  <BibliotecaButton variant="oracao">Oração</BibliotecaButton>
+                  <BibliotecaButton variant="premium">Premium</BibliotecaButton>
+                </div>
+              }
+              code={`<Button variant="devocional">Devocional</Button>`}
+            />
+
+            <ComponentExample
+              title="Input"
+              description="Campos de entrada especializados"
+              component={
+                <div className="space-y-3 max-w-sm">
+                  <BibliotecaInput 
+                    label="Nome" 
+                    placeholder="Digite seu nome"
+                    variant="default"
+                  />
+                  <BibliotecaInput 
+                    label="Email" 
+                    placeholder="seu@email.com"
+                    variant="outlined"
+                    helper="Usado para login"
+                  />
+                </div>
+              }
+              code={`<Input label="Nome" variant="outlined" />`}
+            />
+
+            <ComponentExample
+              title="Avatar"
+              description="Avatares com indicadores de status"
+              component={
+                <div className="flex items-center gap-4">
+                  <Avatar size="sm">
+                    <img src="/placeholder-user.jpg" alt="User" />
+                  </Avatar>
+                  <UserAvatar 
+                    name="João Silva" 
+                    level={5}
+                    showLevel={true}
+                    size="md"
+                  />
+                  <UserAvatar 
+                    name="Maria Santos" 
+                    status="online"
+                    showStatus={true}
+                    size="lg"
+                  />
+                </div>
+              }
+              code={`<UserAvatar name="João" level={5} showLevel />`}
+            />
+
+            <ComponentExample
+              title="Skeleton"
+              description="Estados de carregamento"
+              component={
+                <div className="space-y-4">
+                  <SkeletonCard />
+                  <div className="flex gap-4">
+                    <Skeleton variant="circular" className="h-12 w-12" />
+                    <div className="space-y-2 flex-1">
+                      <Skeleton className="h-4 w-3/4" />
+                      <Skeleton className="h-3 w-1/2" />
+                    </div>
+                  </div>
+                </div>
+              }
+              code={`<SkeletonCard />`}
+            />
           </div>
         </TabsContent>
 
-        {/* COMPONENTES FUNCIONAIS */}
+        {/* 3. COMPONENTES FUNCIONAIS */}
         <TabsContent value="funcionais" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <ComponentExample
@@ -254,7 +426,7 @@ export default function WriterBiblioteca() {
           </div>
         </TabsContent>
 
-        {/* SEÇÕES */}
+        {/* 4. SEÇÕES */}
         <TabsContent value="secoes" className="space-y-6">
           <Card>
             <CardHeader>
@@ -288,7 +460,7 @@ export default function WriterBiblioteca() {
           </Card>
         </TabsContent>
 
-        {/* LAYOUTS */}
+        {/* 5. LAYOUTS */}
         <TabsContent value="layouts" className="space-y-6">
           <Card>
             <CardHeader>
@@ -337,48 +509,143 @@ export default function WriterBiblioteca() {
           </Card>
         </TabsContent>
 
-        {/* TEMPLATES */}
-        <TabsContent value="templates" className="space-y-6">
-          <Card>
+        {/* 6. NAVEGAÇÃO */}
+        <TabsContent value="navegacao" className="space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <ComponentExample
+              title="TopNavigation"
+              description="Navegação superior com usuário e ações"
+              component={
+                <div className="border rounded-lg overflow-hidden">
+                  <TopNavigation
+                    title="Meu App"
+                    user={{ name: "João", level: 5 }}
+                    showNotifications={true}
+                  />
+                </div>
+              }
+              code={`<TopNavigation title="App" user={{ name: "João", level: 5 }} />`}
+            />
+
+            <ComponentExample
+              title="DevotionalTopNav"
+              description="Navegação especializada para devocionais"
+              component={
+                <div className="border rounded-lg overflow-hidden">
+                  <DevotionalTopNav
+                    title="Devocional"
+                    streak={7}
+                    level={3}
+                    user={{ name: "Maria" }}
+                  />
+                </div>
+              }
+              code={`<DevotionalTopNav title="Devocional" streak={7} level={3} />`}
+            />
+
+            <ComponentExample
+              title="Breadcrumb"
+              description="Navegação hierárquica"
+              component={
+                <DevotionalBreadcrumb
+                  items={[
+                    { label: "Home", href: "/" },
+                    { label: "Devocionais", href: "/devocionais" },
+                    { label: "Salmo 23", active: true }
+                  ]}
+                />
+              }
+              code={`<DevotionalBreadcrumb items={breadcrumbItems} />`}
+            />
+          </div>
+        </TabsContent>
+
+        {/* 7. TELAS COMPLETAS */}
+        <TabsContent value="telas" className="space-y-6">
+          <ComponentExample
+            title="DashboardScreen"
+            description="Tela completa de dashboard"
+            component={
+              <div className="border rounded-lg h-96 overflow-auto">
+                <SimpleDashboard 
+                  userName="João Silva"
+                  streak={7}
+                  level={3}
+                  todayCompleted={false}
+                />
+              </div>
+            }
+            code={`<SimpleDashboard userName="João" streak={7} level={3} />`}
+          />
+        </TabsContent>
+
+        {/* 8. APLICAÇÃO COMPLETA */}
+        <TabsContent value="aplicacao" className="space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <ComponentExample
+              title="ThemeProvider"
+              description="Provedor de temas com múltiplos esquemas"
+              component={
+                <ThemeSelector 
+                  showModeToggle={true}
+                  showColorSchemes={true}
+                  compact={false}
+                />
+              }
+              code={`<ThemeProvider defaultColorScheme="aurora">
+  <App />
+</ThemeProvider>`}
+            />
+
+            <ComponentExample
+              title="ReaderApp"
+              description="App completo para leitores"
+              component={
+                <div className="p-4 border rounded-lg bg-muted/20">
+                  <h3 className="font-semibold mb-2">ReaderApp</h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Aplicação completa com navegação, temas e estado global
+                  </p>
+                  <div className="text-xs bg-background p-2 rounded border">
+                    <div>✅ Navegação bottom/top</div>
+                    <div>✅ Gerenciamento de estado</div>
+                    <div>✅ Temas automáticos</div>
+                    <div>✅ Telas pré-configuradas</div>
+                  </div>
+                </div>
+              }
+              code={`<ReaderApp 
+  initialUser={{ name: "João", level: 5 }}
+  showTopNavigation={true}
+  showBottomNavigation={true}
+/>`}
+            />
+          </div>
+
+          <Card className="mt-6">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Palette size={20} />
-                Sistema de Templates
-              </CardTitle>
+              <CardTitle>Estrutura Hierárquica Completa</CardTitle>
               <CardDescription>
-                Templates pré-configurados para diferentes estilos visuais
+                8 níveis organizados do mais básico ao mais complexo
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {Object.entries(templateBuilder.presets).map(([key, preset]) => (
-                  <Card key={key} className="p-4">
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-2">
-                        <div 
-                          className="w-4 h-4 rounded"
-                          style={{ backgroundColor: designTokens.colors.schemes[preset.colorScheme].primary }}
-                        />
-                        <h3 className="font-semibold">{preset.nome}</h3>
-                      </div>
-                      <p className="text-xs text-muted-foreground">{preset.categoria}</p>
-                      <div className="flex flex-wrap gap-1">
-                        <Badge variant="outline" className="text-xs">{preset.typography}</Badge>
-                        <Badge variant="outline" className="text-xs">{preset.spacing}</Badge>
-                      </div>
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="w-full"
-                        onClick={() => copyCode(
-                          `templateBuilder.createTemplate(templateBuilder.presets.${key})`,
-                          `template-${key}`
-                        )}
-                      >
-                        {copiedCode === `template-${key}` ? 'Copiado!' : 'Usar Template'}
-                      </Button>
-                    </div>
-                  </Card>
+                {[
+                  { level: '1', name: 'Fundamentos', desc: 'Design Tokens', icon: '🔬' },
+                  { level: '2', name: 'Elementos', desc: 'Átomos básicos', icon: '⚛️' },
+                  { level: '3', name: 'Funcionais', desc: 'Moléculas', icon: '🧬' },
+                  { level: '4', name: 'Seções', desc: 'Organelas', icon: '🔬' },
+                  { level: '5', name: 'Layouts', desc: 'Células', icon: '🏗️' },
+                  { level: '6', name: 'Navegação', desc: 'Tecidos', icon: '🧭' },
+                  { level: '7', name: 'Telas', desc: 'Órgãos', icon: '🖥️' },
+                  { level: '8', name: 'Aplicação', desc: 'Organismo', icon: '🌍' },
+                ].map((item) => (
+                  <div key={item.level} className="p-3 border rounded-lg text-center">
+                    <div className="text-2xl mb-2">{item.icon}</div>
+                    <h4 className="font-semibold text-sm">{item.name}</h4>
+                    <p className="text-xs text-muted-foreground">{item.desc}</p>
+                  </div>
                 ))}
               </div>
             </CardContent>
