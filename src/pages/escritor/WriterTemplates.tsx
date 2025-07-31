@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { WriterLayout } from '@/components/layout/WriterLayout';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Eye, Palette } from 'lucide-react';
+import { Palette } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 interface Template {
@@ -101,7 +101,7 @@ export const WriterTemplates = () => {
         {/* Templates Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {templates.map((template) => (
-            <Card key={template.id} className="hover-lift">
+            <Card key={template.id}>
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div className="space-y-1">
@@ -144,17 +144,9 @@ export const WriterTemplates = () => {
                   {/* Actions */}
                   <div className="flex gap-2">
                     <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="flex-1"
-                      onClick={() => navigate(`/escritor/templates/${template.id}/preview`)}
-                    >
-                      <Eye size={16} />
-                      Preview
-                    </Button>
-                    <Button 
-                      variant="premium" 
+                      variant="default" 
                       size="sm"
+                      className="flex-1"
                       onClick={() => navigate(`/escritor/criar-produto?template=${template.id}`)}
                     >
                       Usar Template

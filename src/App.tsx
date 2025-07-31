@@ -15,7 +15,7 @@ import { AppDevocional } from "./components/AppDevocional";
 import { WriterLogin } from "./pages/escritor/WriterLogin";
 import { WriterDashboard } from "./pages/escritor/WriterDashboard";
 import { WriterTemplates } from "./pages/escritor/WriterTemplates";
-import { TemplatePreview } from "./pages/escritor/TemplatePreview";
+
 import { WriterProdutos } from "./pages/escritor/WriterProdutos";
 import { CriarProduto } from "./pages/escritor/CriarProduto";
 import { WriterConfiguracoes } from "./pages/escritor/WriterConfiguracoes";
@@ -55,11 +55,6 @@ const App = () => (
               <Route path="/escritor/templates" element={
                 <ProtectedWriterRoute>
                   <WriterTemplates />
-                </ProtectedWriterRoute>
-              } />
-              <Route path="/escritor/templates/:id/preview" element={
-                <ProtectedWriterRoute>
-                  <TemplatePreview />
                 </ProtectedWriterRoute>
               } />
               <Route path="/escritor/produtos" element={

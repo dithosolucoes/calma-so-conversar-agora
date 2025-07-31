@@ -145,14 +145,6 @@ All colors MUST be HSL.
   }
 }
 
-@keyframes gradient-shift {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
 
 /* Utilitários de animação */
 .animate-fade-in {
@@ -167,24 +159,7 @@ All colors MUST be HSL.
   animation: slide-up 0.4s ease-out;
 }
 
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradient-shift 3s ease infinite;
-}
 
-/* Hover effects */
-.hover-lift {
-  transition: var(--transition-smooth);
-}
-
-.hover-lift:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-elegant);
-}
-
-.hover-glow:hover {
-  box-shadow: var(--shadow-glow);
-}
 
 /* Componentes customizados */
 .gradient-text {
