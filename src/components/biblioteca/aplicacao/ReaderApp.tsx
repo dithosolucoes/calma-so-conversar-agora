@@ -102,10 +102,10 @@ export const ReaderApp = ({
         data={{
           user,
           stats: [
-            { titulo: 'Sequência', valor: `${user.streak} dias`, icon: 'Flame', color: 'success' as const },
-            { titulo: 'Nível', valor: user.level.toString(), icon: 'Crown', color: 'default' as const },
-            { titulo: 'Pontos', valor: user.points.toString(), icon: 'Star', color: 'default' as const },
-            { titulo: 'Meta', valor: '7/7', icon: 'Target', color: 'success' as const },
+            { id: '1', titulo: 'Sequência', valor: `${user.streak} dias`, icon: 'Flame', color: 'success' as const },
+            { id: '2', titulo: 'Nível', valor: user.level.toString(), icon: 'Crown', color: 'default' as const },
+            { id: '3', titulo: 'Pontos', valor: user.points.toString(), icon: 'Star', color: 'default' as const },
+            { id: '4', titulo: 'Meta', valor: '7/7', icon: 'Target', color: 'success' as const },
           ],
           weekProgress: { diasTotais: 7, diaAtual: Math.min(user.streak, 7) },
           recentAchievements: [],
@@ -166,9 +166,8 @@ export const ReaderApp = ({
 
         {showBottomNavigation && (
           <BottomNavigation
-            activeTab={currentRoute}
+            activeTab={currentRoute as "hoje" | "crescimento" | "perfil"}
             onTabChange={navigate}
-            navigation={defaultNavigation}
           />
         )}
       </div>

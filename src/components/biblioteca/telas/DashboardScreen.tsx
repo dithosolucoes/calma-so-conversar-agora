@@ -18,6 +18,7 @@ interface DashboardData {
     avatar?: string;
   };
   stats: Array<{
+    id: string;
     titulo: string;
     valor: string;
     icon: any;
@@ -38,11 +39,12 @@ interface DashboardData {
     diaAtual: number;
   };
   recentAchievements: Array<{
+    id: string;
     titulo: string;
     descricao: string;
-    icon: string;
+    icon: keyof typeof import('lucide-react').icons;
     desbloqueada: boolean;
-    raridade: 'comum' | 'rara' | 'epica' | 'lendaria';
+    raridade: 'comum' | 'raro' | 'epico' | 'lendario';
   }>;
 }
 
@@ -109,7 +111,7 @@ export const DashboardScreen = ({
         <ProgressTracker
           diasTotais={data.weekProgress.diasTotais}
           diaAtual={data.weekProgress.diaAtual}
-          variant={variant === 'compact' ? 'minimal' : 'default'}
+          variant={variant === 'compact' ? 'compact' : 'default'}
           showLabels={variant !== 'compact'}
         />
       </div>
@@ -125,7 +127,7 @@ export const DashboardScreen = ({
           </div>
           <DevotionalCard
             {...data.todayActivity}
-            variant={variant === 'compact' ? 'minimal' : 'default'}
+            variant={variant === 'compact' ? 'compact' : 'default'}
             onClick={() => onActivityClick?.(data.todayActivity)}
           />
         </div>
@@ -143,8 +145,7 @@ export const DashboardScreen = ({
         </div>
         <StatsGrid 
           stats={data.stats}
-          variant={variant === 'compact' ? 'minimal' : 'default'}
-          maxItems={variant === 'compact' ? 4 : undefined}
+          variant={variant === 'compact' ? 'compact' : 'default'}
         />
       </div>
 
@@ -161,8 +162,7 @@ export const DashboardScreen = ({
           </div>
           <AchievementGrid
             achievements={data.recentAchievements}
-            variant={variant === 'compact' ? 'minimal' : 'grid'}
-            maxItems={variant === 'compact' ? 3 : 6}
+            variant={variant === 'compact' ? 'compact' : 'default'}
           />
         </div>
       )}
@@ -195,10 +195,10 @@ export const SimpleDashboard = ({
   const mockData: DashboardData = {
     user: { name: userName, level, streak, points: level * 100 },
     stats: [
-      { titulo: 'Sequência', valor: `${streak} dias`, icon: 'Flame', color: 'success' },
-      { titulo: 'Nível', valor: level.toString(), icon: 'Crown', color: 'default' },
-      { titulo: 'Pontos', valor: (level * 100).toString(), icon: 'Star', color: 'default' },
-      { titulo: 'Meta', valor: '7/7', icon: 'Target', color: 'success' },
+      { id: '1', titulo: 'Sequência', valor: `${streak} dias`, icon: 'Flame', color: 'success' },
+      { id: '2', titulo: 'Nível', valor: level.toString(), icon: 'Crown', color: 'default' },
+      { id: '3', titulo: 'Pontos', valor: (level * 100).toString(), icon: 'Star', color: 'default' },
+      { id: '4', titulo: 'Meta', valor: '7/7', icon: 'Target', color: 'success' },
     ],
     weekProgress: { diasTotais: 7, diaAtual: streak > 7 ? 7 : streak },
     recentAchievements: [],

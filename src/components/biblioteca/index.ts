@@ -5,6 +5,10 @@ export { designTokens, applyColorScheme } from './fundamentos/DesignTokens';
 
 // ============ ELEMENTOS BÁSICOS (Moléculas) ============
 export { Badge, badgeVariants } from './elementos/Badge';
+export { Button, buttonVariants } from './elementos/Button';
+export { Input, Textarea, inputVariants } from './elementos/Input';
+export { Avatar, AvatarImage, AvatarFallback, UserAvatar, StatusIndicator, avatarVariants } from './elementos/Avatar';
+export { Skeleton, SkeletonCard } from './elementos/Skeleton';
 export { Icon, DevotionalIcons } from './elementos/Icon';
 export { Typography, Title, Text, Caption, Quote, Verse, typographyVariants } from './elementos/Typography';
 export { LoadingSpinner, LoadingPage, InlineLoading, spinnerVariants } from './elementos/LoadingSpinner';
@@ -20,9 +24,20 @@ export { ActivitySection } from './secoes/ActivitySection';
 export { StatsGrid } from './secoes/StatsGrid';
 export { AchievementGrid } from './secoes/AchievementGrid';
 
+// ============ NAVEGAÇÃO (Sistemas de Navegação) ============
+export { TopNavigation, DevotionalTopNav } from './navegacao/TopNavigation';
+export { Breadcrumb, DevotionalBreadcrumb } from './navegacao/Breadcrumb';
+
 // ============ LAYOUTS (Tecidos) ============
 export { ScreenHeader } from './layouts/ScreenHeader';
 export { ScreenLayout } from './layouts/ScreenLayout';
+
+// ============ TELAS (Órgãos) ============
+export { DashboardScreen, SimpleDashboard } from './telas/DashboardScreen';
+
+// ============ APLICAÇÃO (Organismo) ============
+export { ReaderApp, useReaderApp, useNavigation, useUser, ReaderScreen } from './aplicacao/ReaderApp';
+export { ThemeProvider, ThemeSelector } from './aplicacao/ThemeProvider';
 
 // ============ TEMPLATE BUILDER (DNA) ============
 // Sistema para criar novos templates combinando diferentes "genes"
