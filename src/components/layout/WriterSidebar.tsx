@@ -15,10 +15,6 @@ import { cn } from '@/lib/utils';
 
 const menuItems = [
   { title: 'Dashboard', url: '/escritor/dashboard', icon: LayoutDashboard },
-  { title: 'Jornadas', url: '/escritor/jornadas', icon: BookOpen },
-  { title: 'Conteúdo', url: '/escritor/conteudo', icon: FileText },
-  { title: 'Produtos', url: '/escritor/produtos', icon: ShoppingBag },
-  { title: 'Templates', url: '/escritor/templates', icon: Palette },
   { title: 'Configurações', url: '/escritor/configuracoes', icon: Settings },
 ];
 

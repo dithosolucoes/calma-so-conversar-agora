@@ -14,13 +14,7 @@ import { Sucesso } from "./pages/Sucesso";
 import { AppDevocional } from "./components/AppDevocional";
 import { WriterLogin } from "./pages/escritor/WriterLogin";
 import { WriterDashboard } from "./pages/escritor/WriterDashboard";
-import { WriterJornadas } from "./pages/escritor/WriterJornadas";
-import { NovaJornada } from "./pages/escritor/NovaJornada";
-import { WriterConteudo } from "./pages/escritor/WriterConteudo";
-import { WriterProdutos } from "./pages/escritor/WriterProdutos";
-import WriterTemplates from "./pages/escritor/WriterTemplates";
 import { WriterConfiguracoes } from "./pages/escritor/WriterConfiguracoes";
-import { EditarJornada } from "./pages/escritor/EditarJornada";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
@@ -52,36 +46,6 @@ const App = () => (
               <Route path="/escritor/dashboard" element={
                 <ProtectedWriterRoute>
                   <WriterDashboard />
-                </ProtectedWriterRoute>
-              } />
-              <Route path="/escritor/jornadas" element={
-                <ProtectedWriterRoute>
-                  <WriterJornadas />
-                </ProtectedWriterRoute>
-              } />
-              <Route path="/escritor/jornadas/nova" element={
-                <ProtectedWriterRoute>
-                  <NovaJornada />
-                </ProtectedWriterRoute>
-              } />
-              <Route path="/escritor/jornadas/:id/editar" element={
-                <ProtectedWriterRoute>
-                  <EditarJornada />
-                </ProtectedWriterRoute>
-              } />
-              <Route path="/escritor/conteudo" element={
-                <ProtectedWriterRoute>
-                  <WriterConteudo />
-                </ProtectedWriterRoute>
-              } />
-              <Route path="/escritor/produtos" element={
-                <ProtectedWriterRoute>
-                  <WriterProdutos />
-                </ProtectedWriterRoute>
-              } />
-              <Route path="/escritor/templates" element={
-                <ProtectedWriterRoute>
-                  <WriterTemplates />
                 </ProtectedWriterRoute>
               } />
               <Route path="/escritor/configuracoes" element={
