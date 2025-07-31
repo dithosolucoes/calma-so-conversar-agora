@@ -5,7 +5,9 @@ import { WriterLayout } from '@/components/layout/WriterLayout';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { FileText, Edit, Search, Filter, Calendar, BookOpen } from 'lucide-react';
+import { FileText, Edit, Search, Filter, Calendar, BookOpen, Copy, Upload } from 'lucide-react';
+import { GPTPromptModal } from '@/components/gpt/GPTPromptModal';
+import { ImportJSONModal } from '@/components/gpt/ImportJSONModal';
 import {
   Select,
   SelectContent,
@@ -28,6 +30,8 @@ export const WriterConteudo = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterJornada, setFilterJornada] = useState('todas');
   const [filterTipo, setFilterTipo] = useState('todos');
+  const [showPromptModal, setShowPromptModal] = useState(false);
+  const [showImportModal, setShowImportModal] = useState(false);
 
   const [conteudos] = useState<ConteudoItem[]>([
     {
@@ -103,10 +107,26 @@ export const WriterConteudo = () => {
             <h1 className="text-3xl font-bold gradient-text">Conteúdo</h1>
             <p className="text-muted-foreground">Gerencie todo o conteúdo das suas jornadas</p>
           </div>
-          <Button variant="premium">
-            <FileText size={20} />
-            Novo Conteúdo
-          </Button>
+          <div className="flex gap-3">
+            <Button 
+              variant="outline"
+              onClick={() => setShowPromptModal(true)}
+            >
+              <Copy size={16} />
+              Gerar Prompt ChatGPT
+            </Button>
+            <Button 
+              variant="outline"
+              onClick={() => setShowImportModal(true)}
+            >
+              <Upload size={16} />
+              Importar JSON
+            </Button>
+            <Button variant="premium">
+              <FileText size={20} />
+              Novo Conteúdo
+            </Button>
+          </div>
         </div>
 
         {/* Filters */}
@@ -192,6 +212,16 @@ export const WriterConteudo = () => {
           })}
         </div>
       </div>
+
+      <GPTPromptModal 
+        open={showPromptModal}
+        onOpenChange={setShowPromptModal}
+      />
+      
+      <ImportJSONModal 
+        open={showImportModal}
+        onOpenChange={setShowImportModal}
+      />
     </WriterLayout>
   );
 };
