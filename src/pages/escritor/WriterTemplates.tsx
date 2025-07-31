@@ -21,56 +21,7 @@ interface Template {
 
 export const WriterTemplates = () => {
   const navigate = useNavigate();
-  const [templates] = useState<Template[]>([
-    {
-      id: '1',
-      nome: 'Aurora Sagrada',
-      categoria: 'elegante',
-      thumbnail: '/placeholder.svg',
-      descricao: 'Design elegante com gradientes suaves e tipografia refinada',
-      cores: {
-        primary: '#6366F1',
-        secondary: '#EC4899',
-        background: '#F8FAFC'
-      }
-    },
-    {
-      id: '2',
-      nome: 'Paz Minimalista',
-      categoria: 'minimalista',
-      thumbnail: '/placeholder.svg',
-      descricao: 'Layout limpo e focado na essência do conteúdo',
-      cores: {
-        primary: '#059669',
-        secondary: '#10B981',
-        background: '#FFFFFF'
-      }
-    },
-    {
-      id: '3',
-      nome: 'Luz Vibrante',
-      categoria: 'colorido',
-      thumbnail: '/placeholder.svg',
-      descricao: 'Cores vivas e energia positiva para inspirar',
-      cores: {
-        primary: '#F59E0B',
-        secondary: '#EF4444',
-        background: '#FEF3C7'
-      }
-    },
-    {
-      id: '4',
-      nome: 'Moderno Clean',
-      categoria: 'moderno',
-      thumbnail: '/placeholder.svg',
-      descricao: 'Interface moderna com elementos contemporâneos',
-      cores: {
-        primary: '#8B5CF6',
-        secondary: '#06B6D4',
-        background: '#F1F5F9'
-      }
-    }
-  ]);
+  const [templates] = useState<Template[]>([]);
 
   const getCategoriaColor = (categoria: string) => {
     switch (categoria) {
