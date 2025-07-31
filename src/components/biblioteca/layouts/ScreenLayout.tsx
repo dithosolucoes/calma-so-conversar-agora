@@ -12,7 +12,7 @@ interface ScreenLayoutProps {
   headerIconName?: keyof typeof import('lucide-react').icons;
   headerBadge?: {
     text: string;
-    variant?: 'default' | 'primary' | 'success' | 'warning' | 'error';
+    variant?: 'default' | 'secondary' | 'success' | 'warning' | 'error';
   };
   headerActions?: React.ReactNode;
   headerVariant?: 'default' | 'greeting' | 'minimal';
