@@ -20,7 +20,6 @@ import { WriterProdutos } from "./pages/escritor/WriterProdutos";
 import { CriarProduto } from "./pages/escritor/CriarProduto";
 import { WriterConfiguracoes } from "./pages/escritor/WriterConfiguracoes";
 import Index from "./pages/Index";
-import { BibliotecaPage } from "./pages/Biblioteca";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -76,9 +75,6 @@ const App = () => (
               
               {/* Legacy */}
               <Route path="/old" element={<Index />} />
-              
-              {/* Biblioteca */}
-              <Route path="/biblioteca" element={<BibliotecaPage />} />
               
               {/* 404 */}
               <Route path="*" element={<NotFound />} />

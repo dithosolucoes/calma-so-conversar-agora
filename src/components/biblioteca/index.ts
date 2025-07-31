@@ -1,8 +1,7 @@
 // BIBLIOTECA DE COMPONENTES - SISTEMA HIERÁRQUICO COMPLETO
 
 // ============ FUNDAMENTOS (Átomos) ============
-import { designTokens, applyColorScheme } from './fundamentos/DesignTokens';
-export { designTokens, applyColorScheme };
+export { designTokens, applyColorScheme } from './fundamentos/DesignTokens';
 
 // ============ ELEMENTOS BÁSICOS (Moléculas) ============
 export { Badge, badgeVariants } from './elementos/Badge';
