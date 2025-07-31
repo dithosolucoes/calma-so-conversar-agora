@@ -31,7 +31,7 @@ export interface TemplateConfig {
   id: string;
   nome: string;
   categoria: string;
-  colorScheme: keyof typeof designTokens.colors.schemes;
+  colorScheme: 'aurora' | 'minimalista' | 'vibrante' | 'moderno';
   typography: 'default' | 'elegant' | 'modern' | 'playful';
   spacing: 'compact' | 'comfortable' | 'spacious';
   animations: 'subtle' | 'smooth' | 'energetic';
@@ -39,11 +39,14 @@ export interface TemplateConfig {
 
 export const templateBuilder = {
   // Criar novo template aplicando configurações
-  createTemplate: (config: TemplateConfig) => ({
-    styles: applyColorScheme(config.colorScheme),
-    className: `template-${config.id}`,
-    config,
-  }),
+  createTemplate: (config: TemplateConfig) => {
+    const { applyColorScheme } = require('./fundamentos/DesignTokens');
+    return {
+      styles: applyColorScheme(config.colorScheme),
+      className: `template-${config.id}`,
+      config,
+    };
+  },
   
   // Templates pré-configurados
   presets: {

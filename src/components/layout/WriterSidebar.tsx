@@ -15,6 +15,7 @@ import { cn } from '@/lib/utils';
 
 const menuItems = [
   { title: 'Dashboard', url: '/escritor/dashboard', icon: LayoutDashboard },
+  { title: 'Biblioteca', url: '/escritor/biblioteca', icon: BookOpen },
   { title: 'Templates', url: '/escritor/templates', icon: Palette },
   { title: 'Produtos', url: '/escritor/produtos', icon: ShoppingBag },
   { title: 'Configurações', url: '/escritor/configuracoes', icon: Settings },
